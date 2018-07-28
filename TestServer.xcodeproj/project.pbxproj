@@ -12,6 +12,8 @@
 		09533BF52104F41E00E1371B /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 09533BF42104F41E00E1371B /* Assets.xcassets */; };
 		09533BF82104F41E00E1371B /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 09533BF62104F41E00E1371B /* Main.storyboard */; };
 		09533BFB2104F41E00E1371B /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 09533BFA2104F41E00E1371B /* main.m */; };
+		09904E5B210B9B8100C980E5 /* ServerThread.m in Sources */ = {isa = PBXBuildFile; fileRef = 09904E5A210B9B8100C980E5 /* ServerThread.m */; };
+		09904E5F210B9C8800C980E5 /* SocketConnectionService.m in Sources */ = {isa = PBXBuildFile; fileRef = 09904E5E210B9C8800C980E5 /* SocketConnectionService.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -25,6 +27,10 @@
 		09533BF92104F41E00E1371B /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		09533BFA2104F41E00E1371B /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		09533BFC2104F41E00E1371B /* TestServer.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = TestServer.entitlements; sourceTree = "<group>"; };
+		09904E59210B9B8100C980E5 /* ServerThread.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ServerThread.h; sourceTree = "<group>"; };
+		09904E5A210B9B8100C980E5 /* ServerThread.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ServerThread.m; sourceTree = "<group>"; };
+		09904E5D210B9C8800C980E5 /* SocketConnectionService.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SocketConnectionService.h; sourceTree = "<group>"; };
+		09904E5E210B9C8800C980E5 /* SocketConnectionService.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SocketConnectionService.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -57,6 +63,7 @@
 		09533BED2104F41D00E1371B /* TestServer */ = {
 			isa = PBXGroup;
 			children = (
+				09904E57210B9B2E00C980E5 /* Server */,
 				09533BEE2104F41D00E1371B /* AppDelegate.h */,
 				09533BEF2104F41D00E1371B /* AppDelegate.m */,
 				09533BF12104F41D00E1371B /* ViewController.h */,
@@ -68,6 +75,33 @@
 				09533BFC2104F41E00E1371B /* TestServer.entitlements */,
 			);
 			path = TestServer;
+			sourceTree = "<group>";
+		};
+		09904E57210B9B2E00C980E5 /* Server */ = {
+			isa = PBXGroup;
+			children = (
+				09904E58210B9B3600C980E5 /* ServerThread */,
+				09904E5C210B9C7500C980E5 /* SocketConnectionService */,
+			);
+			path = Server;
+			sourceTree = "<group>";
+		};
+		09904E58210B9B3600C980E5 /* ServerThread */ = {
+			isa = PBXGroup;
+			children = (
+				09904E59210B9B8100C980E5 /* ServerThread.h */,
+				09904E5A210B9B8100C980E5 /* ServerThread.m */,
+			);
+			path = ServerThread;
+			sourceTree = "<group>";
+		};
+		09904E5C210B9C7500C980E5 /* SocketConnectionService */ = {
+			isa = PBXGroup;
+			children = (
+				09904E5D210B9C8800C980E5 /* SocketConnectionService.h */,
+				09904E5E210B9C8800C980E5 /* SocketConnectionService.m */,
+			);
+			path = SocketConnectionService;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -101,6 +135,11 @@
 				TargetAttributes = {
 					09533BEA2104F41D00E1371B = {
 						CreatedOnToolsVersion = 9.4.1;
+						SystemCapabilities = {
+							com.apple.Sandbox = {
+								enabled = 1;
+							};
+						};
 					};
 				};
 			};
@@ -139,8 +178,10 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				09904E5B210B9B8100C980E5 /* ServerThread.m in Sources */,
 				09533BF32104F41D00E1371B /* ViewController.m in Sources */,
 				09533BFB2104F41E00E1371B /* main.m in Sources */,
+				09904E5F210B9C8800C980E5 /* SocketConnectionService.m in Sources */,
 				09533BF02104F41D00E1371B /* AppDelegate.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
