@@ -45,7 +45,12 @@
 
     if (dataLength > 0) {
         NSData *receivedData = [NSData dataWithBytes:buff length:dataLength];
-        [receivedDataArray insertObject:receivedData atIndex:0]; //addObject:receivedData]; // or add at index 0?
+
+        [receivedDataArray insertObject:receivedData atIndex:0];
+        NSString *didWriteString = [[NSString alloc] initWithBytes:buff length:dataLength encoding:NSUTF8StringEncoding];
+        NSLog(@"Did receive string: %@", didWriteString);
+
+        [outputStream write: [[didWriteString dataUsingEncoding:NSUTF8StringEncoding] bytes] maxLength:dataLength];
     } else if (dataLength < 0) {
         NSError *error = [stream streamError];
         NSLog(@"Error occured: %@", [error localizedDescription]);
@@ -60,7 +65,8 @@
         uint8_t dataBytes = (uint8_t)[data bytes];
         dataBytes += currentOffset;
         // defining lenght
-        NSInteger length = [data length] - currentOffset > maxLength ? maxLength : [data length] > currentOffset;
+
+        NSInteger length = [data length] - currentOffset > maxLength ? maxLength : [data length] - currentOffset;
         NSInteger sentLength = [stream write:&dataBytes maxLength: length];
 
         if (sentLength > 0) {
@@ -72,10 +78,9 @@
             }
 
         } else if (sentLength < 0) {
-            NSError *error = stream.streamError;
+            NSError *error = stream.streamError; 
             NSLog(@"%@", error.localizedDescription);
         }
-
     }
 }
 

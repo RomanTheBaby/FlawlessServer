@@ -10,4 +10,7 @@
 
 @interface ServerThread : NSThread
 
+- (void) stopServer;
+- (void) startServer;
+
 @end

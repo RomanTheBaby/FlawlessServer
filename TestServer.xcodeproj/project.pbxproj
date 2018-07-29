@@ -14,6 +14,8 @@
 		09533BFB2104F41E00E1371B /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 09533BFA2104F41E00E1371B /* main.m */; };
 		09904E5B210B9B8100C980E5 /* ServerThread.m in Sources */ = {isa = PBXBuildFile; fileRef = 09904E5A210B9B8100C980E5 /* ServerThread.m */; };
 		09904E5F210B9C8800C980E5 /* SocketConnectionService.m in Sources */ = {isa = PBXBuildFile; fileRef = 09904E5E210B9C8800C980E5 /* SocketConnectionService.m */; };
+		09EB39F7210DDFB800BB299B /* NSViewController+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09EB39F6210DDFB800BB299B /* NSViewController+Extensions.swift */; };
+		09EB39FC210DE2D300BB299B /* NSTextView+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09EB39FA210DE2D300BB299B /* NSTextView+Extensions.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -31,6 +33,9 @@
 		09904E5A210B9B8100C980E5 /* ServerThread.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ServerThread.m; sourceTree = "<group>"; };
 		09904E5D210B9C8800C980E5 /* SocketConnectionService.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SocketConnectionService.h; sourceTree = "<group>"; };
 		09904E5E210B9C8800C980E5 /* SocketConnectionService.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SocketConnectionService.m; sourceTree = "<group>"; };
+		09EB39F6210DDFB800BB299B /* NSViewController+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NSViewController+Extensions.swift"; sourceTree = "<group>"; };
+		09EB39F9210DE07E00BB299B /* TestServer-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "TestServer-Bridging-Header.h"; sourceTree = "<group>"; };
+		09EB39FA210DE2D300BB299B /* NSTextView+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NSTextView+Extensions.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -63,16 +68,12 @@
 		09533BED2104F41D00E1371B /* TestServer */ = {
 			isa = PBXGroup;
 			children = (
-				09904E57210B9B2E00C980E5 /* Server */,
-				09533BEE2104F41D00E1371B /* AppDelegate.h */,
-				09533BEF2104F41D00E1371B /* AppDelegate.m */,
-				09533BF12104F41D00E1371B /* ViewController.h */,
-				09533BF22104F41D00E1371B /* ViewController.m */,
-				09533BF42104F41E00E1371B /* Assets.xcassets */,
-				09533BF62104F41E00E1371B /* Main.storyboard */,
 				09533BF92104F41E00E1371B /* Info.plist */,
 				09533BFA2104F41E00E1371B /* main.m */,
 				09533BFC2104F41E00E1371B /* TestServer.entitlements */,
+				09EB39EC210DDD9B00BB299B /* App */,
+				09EB39EF210DDE2600BB299B /* Library */,
+				09EB39ED210DDE0F00BB299B /* Controllers */,
 			);
 			path = TestServer;
 			sourceTree = "<group>";
@@ -102,6 +103,53 @@
 				09904E5E210B9C8800C980E5 /* SocketConnectionService.m */,
 			);
 			path = SocketConnectionService;
+			sourceTree = "<group>";
+		};
+		09EB39EC210DDD9B00BB299B /* App */ = {
+			isa = PBXGroup;
+			children = (
+				09533BEE2104F41D00E1371B /* AppDelegate.h */,
+				09533BEF2104F41D00E1371B /* AppDelegate.m */,
+			);
+			path = App;
+			sourceTree = "<group>";
+		};
+		09EB39ED210DDE0F00BB299B /* Controllers */ = {
+			isa = PBXGroup;
+			children = (
+				09533BF62104F41E00E1371B /* Main.storyboard */,
+				09EB39EE210DDE1500BB299B /* MainLog */,
+			);
+			path = Controllers;
+			sourceTree = "<group>";
+		};
+		09EB39EE210DDE1500BB299B /* MainLog */ = {
+			isa = PBXGroup;
+			children = (
+				09533BF12104F41D00E1371B /* ViewController.h */,
+				09533BF22104F41D00E1371B /* ViewController.m */,
+			);
+			path = MainLog;
+			sourceTree = "<group>";
+		};
+		09EB39EF210DDE2600BB299B /* Library */ = {
+			isa = PBXGroup;
+			children = (
+				09EB39F0210DDE6B00BB299B /* Extensions */,
+				09904E57210B9B2E00C980E5 /* Server */,
+				09533BF42104F41E00E1371B /* Assets.xcassets */,
+			);
+			path = Library;
+			sourceTree = "<group>";
+		};
+		09EB39F0210DDE6B00BB299B /* Extensions */ = {
+			isa = PBXGroup;
+			children = (
+				09EB39F9210DE07E00BB299B /* TestServer-Bridging-Header.h */,
+				09EB39F6210DDFB800BB299B /* NSViewController+Extensions.swift */,
+				09EB39FA210DE2D300BB299B /* NSTextView+Extensions.swift */,
+			);
+			path = Extensions;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -135,6 +183,7 @@
 				TargetAttributes = {
 					09533BEA2104F41D00E1371B = {
 						CreatedOnToolsVersion = 9.4.1;
+						LastSwiftMigration = 0940;
 						SystemCapabilities = {
 							com.apple.Sandbox = {
 								enabled = 1;
@@ -179,8 +228,10 @@
 			buildActionMask = 2147483647;
 			files = (
 				09904E5B210B9B8100C980E5 /* ServerThread.m in Sources */,
+				09EB39FC210DE2D300BB299B /* NSTextView+Extensions.swift in Sources */,
 				09533BF32104F41D00E1371B /* ViewController.m in Sources */,
 				09533BFB2104F41E00E1371B /* main.m in Sources */,
+				09EB39F7210DDFB800BB299B /* NSViewController+Extensions.swift in Sources */,
 				09904E5F210B9C8800C980E5 /* SocketConnectionService.m in Sources */,
 				09533BF02104F41D00E1371B /* AppDelegate.m in Sources */,
 			);
@@ -313,6 +364,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_ENTITLEMENTS = TestServer/TestServer.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
@@ -323,6 +375,9 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.baby.TestServer;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OBJC_BRIDGING_HEADER = "TestServer/Library/Extensions/TestServer-Bridging-Header.h";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_VERSION = 3.0;
 			};
 			name = Debug;
 		};
@@ -330,6 +385,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_ENTITLEMENTS = TestServer/TestServer.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
@@ -340,6 +396,8 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.baby.TestServer;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OBJC_BRIDGING_HEADER = "TestServer/Library/Extensions/TestServer-Bridging-Header.h";
+				SWIFT_VERSION = 3.0;
 			};
 			name = Release;
 		};

@@ -21,13 +21,11 @@
 @implementation ServerThread
 
 -(id) init {
-    [self initializeServer];
     return [super init];
 }
 
 - (void) initializeServer {
 
-    CFSocketContext *context = { 0, (__bridge void *)(self), NULL, NULL, NULL };
     self.socket = CFSocketCreate(kCFAllocatorDefault,
                                  PF_INET,
                                  SOCK_STREAM,
@@ -41,7 +39,7 @@
     memset(&sin, 0, sizeof(sin));
     sin.sin_len = sizeof(sin);
     sin.sin_family = AF_INET; /* Address family */
-    sin.sin_port = htons(0); /* Or a specific port */
+    sin.sin_port = htons(3345); /* Or a specific port */
     sin.sin_addr.s_addr = INADDR_ANY;
 
     // Binding address to the socket
@@ -57,7 +55,14 @@
     CFRelease(sincfd);
 }
 
-- (void) main {
+- (void) cancel {
+    [super cancel];
+    [self stopServer];
+}
+
+- (void) startServer {
+    [self initializeServer];
+
     CFRunLoopSourceRef socketLoopSource = CFSocketCreateRunLoopSource(kCFAllocatorDefault,
                                                                       self.socket,
                                                                       0);
@@ -67,10 +72,12 @@
                        kCFRunLoopDefaultMode);
 
     CFRelease(socketLoopSource);
+    NSLog(@"IS in loop");
     CFRunLoopRun();
 }
 
 - (void) stopServer {
+    NSLog(@"Will stop server");
     CFSocketInvalidate(self.socket);
     CFRelease(self.socket);
     CFRunLoopStop(CFRunLoopGetCurrent());
@@ -79,8 +86,6 @@
 void socketCallback(CFSocketRef cfSocket, CFSocketCallBackType type,
                     CFDataRef address, const void *data, void *info)
 {
-    NSLog(@"callbackType: %lu", type);
-
     switch (type) {
         case kCFSocketAcceptCallBack: {
             SocketConnectionService *connection = [[SocketConnectionService alloc] init];
@@ -88,6 +93,7 @@ void socketCallback(CFSocketRef cfSocket, CFSocketCallBackType type,
                                          &(connection->readStream), &(connection->writeStream));
             CFReadStreamSetProperty(connection->readStream, kCFStreamPropertyShouldCloseNativeSocket, kCFBooleanTrue);
             CFWriteStreamSetProperty(connection->writeStream, kCFStreamPropertyShouldCloseNativeSocket, kCFBooleanTrue);
+            [connection start];
         }
             break;
         case kCFSocketNoCallBack:

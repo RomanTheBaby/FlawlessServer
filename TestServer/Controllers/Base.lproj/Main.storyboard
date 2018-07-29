@@ -709,16 +709,75 @@
                         <rect key="frame" x="0.0" y="0.0" width="480" height="270"/>
                         <autoresizingMask key="autoresizingMask"/>
                         <subviews>
-                            <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="UIO-zc-gNc">
-                                <rect key="frame" x="200" y="13" width="81" height="32"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                                <buttonCell key="cell" type="push" title="Button" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="eJN-c9-hyE">
+                            <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="mnT-Bc-mvy">
+                                <rect key="frame" x="14" y="13" width="112" height="32"/>
+                                <buttonCell key="cell" type="push" title="Stop Server" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="eZo-ja-paS">
                                     <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                                     <font key="font" metaFont="system"/>
                                 </buttonCell>
+                                <connections>
+                                    <action selector="stopServer:" target="XfG-lQ-9wD" id="bjo-2p-AyD"/>
+                                </connections>
                             </button>
+                            <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="UIO-zc-gNc">
+                                <rect key="frame" x="353" y="13" width="113" height="32"/>
+                                <buttonCell key="cell" type="push" title="Start Server" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="eJN-c9-hyE">
+                                    <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                                    <font key="font" metaFont="system"/>
+                                </buttonCell>
+                                <connections>
+                                    <action selector="startServer:" target="XfG-lQ-9wD" id="ZxA-Ns-hrM"/>
+                                </connections>
+                            </button>
+                            <scrollView horizontalLineScroll="10" horizontalPageScroll="10" verticalLineScroll="10" verticalPageScroll="10" hasHorizontalScroller="NO" usesPredominantAxisScrolling="NO" translatesAutoresizingMaskIntoConstraints="NO" id="C62-XL-sNM">
+                                <rect key="frame" x="20" y="49" width="440" height="201"/>
+                                <clipView key="contentView" id="3nS-K7-POw">
+                                    <rect key="frame" x="1" y="1" width="438" height="199"/>
+                                    <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                    <subviews>
+                                        <textView importsGraphics="NO" verticallyResizable="YES" usesFontPanel="YES" findStyle="panel" continuousSpellChecking="YES" allowsUndo="YES" usesRuler="YES" allowsNonContiguousLayout="YES" quoteSubstitution="YES" dashSubstitution="YES" spellingCorrection="YES" smartInsertDelete="YES" id="pw8-SI-ZEw">
+                                            <rect key="frame" x="0.0" y="0.0" width="438" height="199"/>
+                                            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                            <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                            <size key="minSize" width="438" height="199"/>
+                                            <size key="maxSize" width="463" height="10000000"/>
+                                            <attributedString key="textStorage">
+                                                <fragment content="THIS UI IS AWESOME!!!!">
+                                                    <attributes>
+                                                        <font key="NSFont" size="12" name="Helvetica"/>
+                                                        <paragraphStyle key="NSParagraphStyle" alignment="natural" lineBreakMode="wordWrapping" baseWritingDirection="natural" tighteningFactorForTruncation="0.0"/>
+                                                    </attributes>
+                                                </fragment>
+                                            </attributedString>
+                                            <color key="insertionPointColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
+                                        </textView>
+                                    </subviews>
+                                    <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                </clipView>
+                                <scroller key="horizontalScroller" hidden="YES" verticalHuggingPriority="750" doubleValue="1" horizontal="YES" id="Y8k-hi-RXH">
+                                    <rect key="frame" x="-100" y="-100" width="87" height="18"/>
+                                    <autoresizingMask key="autoresizingMask"/>
+                                </scroller>
+                                <scroller key="verticalScroller" verticalHuggingPriority="750" doubleValue="1" horizontal="NO" id="ymv-6R-Wgg">
+                                    <rect key="frame" x="423" y="1" width="16" height="199"/>
+                                    <autoresizingMask key="autoresizingMask"/>
+                                </scroller>
+                            </scrollView>
                         </subviews>
+                        <constraints>
+                            <constraint firstAttribute="bottom" secondItem="UIO-zc-gNc" secondAttribute="bottom" constant="20" id="F7f-lT-DJR"/>
+                            <constraint firstAttribute="trailing" secondItem="C62-XL-sNM" secondAttribute="trailing" constant="20" id="GJ8-FU-PmX"/>
+                            <constraint firstAttribute="bottom" secondItem="mnT-Bc-mvy" secondAttribute="bottom" constant="20" id="JA3-cy-78q"/>
+                            <constraint firstItem="mnT-Bc-mvy" firstAttribute="top" secondItem="C62-XL-sNM" secondAttribute="bottom" constant="8" id="PVP-0C-Kzm"/>
+                            <constraint firstItem="mnT-Bc-mvy" firstAttribute="leading" secondItem="m2S-Jp-Qdl" secondAttribute="leading" constant="20" id="m6q-e3-7wD"/>
+                            <constraint firstItem="C62-XL-sNM" firstAttribute="leading" secondItem="m2S-Jp-Qdl" secondAttribute="leading" constant="20" id="o63-HI-nLe"/>
+                            <constraint firstAttribute="trailing" secondItem="UIO-zc-gNc" secondAttribute="trailing" constant="20" id="zba-PG-Zrc"/>
+                            <constraint firstItem="C62-XL-sNM" firstAttribute="top" secondItem="m2S-Jp-Qdl" secondAttribute="top" constant="20" id="znP-KR-jh9"/>
+                        </constraints>
                     </view>
+                    <connections>
+                        <outlet property="logsTextView" destination="pw8-SI-ZEw" id="qeD-yc-9oR"/>
+                    </connections>
                 </viewController>
                 <customObject id="rPt-NT-nkU" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
             </objects>
