@@ -19,6 +19,7 @@
 
 @implementation ViewController
 
+// well this was supposed to be iMessage-like interface but I had no time implement it, sorry
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.server = [[ServerThread alloc] init];

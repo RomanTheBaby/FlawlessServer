@@ -47,41 +47,18 @@
 
     if (dataLength > 0) {
         NSData *receivedData = [NSData dataWithBytes:buff length:dataLength];
+        NSString *message = [[NSString alloc] initWithData:receivedData encoding:NSUTF8StringEncoding];
+        NSLog(@"will sen message: %@", message);
 
         [receivedDataArray insertObject:receivedData atIndex:0];
 
         NSString *receivedMessage = [[NSString alloc] initWithBytes:buff length:dataLength encoding:NSUTF8StringEncoding];
         [self sendMessageToDelegate:receivedMessage];
-        //[didWriteString dataUsingEncoding:NSUTF8StringEncoding]
-        [outputStream write: [[[NSString stringWithFormat:@""] dataUsingEncoding:NSUTF8StringEncoding] bytes] maxLength:1];
+
+        // so client could see the message to
+        [outputStream write:[receivedData bytes] maxLength:dataLength];
     } else if (dataLength < 0) {
         [self sendErrorToDelegate:[stream streamError]];
-    }
-}
-
-- (void) writeDataToStream:(NSOutputStream*) stream {
-    const NSUInteger maxLength = 1024;
-
-    if ([receivedDataArray count] > 0) {
-        NSData *data = [receivedDataArray lastObject];
-        uint8_t dataBytes = (uint8_t)[data bytes];
-//        dataBytes += currentOffset;
-        // defining lenght
-
-        NSInteger length = [data length] - currentOffset > maxLength ? maxLength : [data length] - currentOffset;
-        NSInteger sentLength = [stream write:&dataBytes maxLength: length];
-
-        if (sentLength > 0) {
-            currentOffset += sentLength;
-
-            if (currentOffset == [data length]) {
-                [receivedDataArray removeLastObject];
-                currentOffset = 0;
-            }
-
-        } else if (sentLength < 0) {
-            [self sendErrorToDelegate:stream.streamError];
-        }
     }
 }
 
@@ -102,11 +79,6 @@
 
 - (void) stream:(NSStream *)aStream handleEvent:(NSStreamEvent)eventCode {
     switch (eventCode) {
-        case NSStreamEventHasSpaceAvailable: {
-            [self writeDataToStream:(NSOutputStream*)aStream];
-        }
-            break;
-
         case NSStreamEventHasBytesAvailable: {
             [self readReceivedDataFromInputStream:(NSInputStream*)aStream];
         }

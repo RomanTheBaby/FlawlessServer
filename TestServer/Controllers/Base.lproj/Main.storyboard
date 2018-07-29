@@ -742,7 +742,9 @@
                                             <size key="minSize" width="436" height="197"/>
                                             <size key="maxSize" width="463" height="10000000"/>
                                             <attributedString key="textStorage">
-                                                <fragment content="THIS UI IS AWESOME!!!!">
+                                                <fragment>
+                                                    <string key="content">THIS UI IS AWESOME!!!!
+</string>
                                                     <attributes>
                                                         <font key="NSFont" size="12" name="Helvetica"/>
                                                         <paragraphStyle key="NSParagraphStyle" alignment="natural" lineBreakMode="wordWrapping" baseWritingDirection="natural" tighteningFactorForTruncation="0.0"/>

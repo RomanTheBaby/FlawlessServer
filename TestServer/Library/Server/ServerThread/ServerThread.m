@@ -9,6 +9,7 @@
 #import "ServerThread.h"
 #include <sys/socket.h>
 #include <netinet/in.h>
+#import "TestServer-Swift.h"
 #import "SocketConnectionService.h"
 #include <CoreFoundation/CoreFoundation.h>
 
@@ -24,7 +25,7 @@
     return [super init];
 }
 
-- (void) initializeServer {
+- (BOOL) initializeServer {
 
     CFSocketContext context = {0, (__bridge void *)(self), NULL, NULL, NULL};
     self.socket = CFSocketCreate(kCFAllocatorDefault,
@@ -51,9 +52,16 @@
                                     sizeof(sin));
 
     CFSocketSetAddress(self.socket, sincfd);
-
-
     CFRelease(sincfd);
+
+    NSInteger bindResult = bind(self.socket, (struct sockaddr *)&sin, sizeof(sin));
+
+//    if (bindResult != 0) {
+//        [self.delegate socketDidReceiveError:[NSError describing: @"Socket Binding Error"]];
+//        return NO;
+//    }
+
+    return YES;
 }
 
 - (void) cancel {
@@ -62,20 +70,20 @@
 }
 
 - (void) startServer {
-    [self initializeServer];
+    if ([self initializeServer]) {
+        [self.delegate serverDidReceiveMessage:@"\nServer Started server..."]; // funny message
 
-    [self.delegate serverDidReceiveMessage:@"\nServer Started server..."];
+        CFRunLoopSourceRef socketLoopSource = CFSocketCreateRunLoopSource(kCFAllocatorDefault,
+                                                                          self.socket,
+                                                                          0);
 
-    CFRunLoopSourceRef socketLoopSource = CFSocketCreateRunLoopSource(kCFAllocatorDefault,
-                                                                      self.socket,
-                                                                      0);
+        CFRunLoopAddSource(CFRunLoopGetCurrent(),
+                           socketLoopSource,
+                           kCFRunLoopDefaultMode);
 
-    CFRunLoopAddSource(CFRunLoopGetCurrent(),
-                       socketLoopSource,
-                       kCFRunLoopDefaultMode);
-
-    CFRelease(socketLoopSource);
-    CFRunLoopRun();
+        CFRelease(socketLoopSource);
+        CFRunLoopRun();
+    }
 }
 
 - (void) stopServer {

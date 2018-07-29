@@ -24,6 +24,5 @@
 @property (assign, nonatomic) id<SocketServiceDelegate> delegate;
 
 - (void) readReceivedDataFromInputStream:(NSInputStream*) stream;
-- (void) writeDataToStream:(NSOutputStream*) stream;
 
 @end
