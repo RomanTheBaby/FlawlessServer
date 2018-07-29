@@ -729,17 +729,17 @@
                                     <action selector="startServer:" target="XfG-lQ-9wD" id="ZxA-Ns-hrM"/>
                                 </connections>
                             </button>
-                            <scrollView horizontalLineScroll="10" horizontalPageScroll="10" verticalLineScroll="10" verticalPageScroll="10" hasHorizontalScroller="NO" usesPredominantAxisScrolling="NO" translatesAutoresizingMaskIntoConstraints="NO" id="C62-XL-sNM">
+                            <scrollView borderType="groove" horizontalLineScroll="10" horizontalPageScroll="10" verticalLineScroll="10" verticalPageScroll="10" hasHorizontalScroller="NO" usesPredominantAxisScrolling="NO" translatesAutoresizingMaskIntoConstraints="NO" id="C62-XL-sNM">
                                 <rect key="frame" x="20" y="49" width="440" height="201"/>
                                 <clipView key="contentView" id="3nS-K7-POw">
-                                    <rect key="frame" x="1" y="1" width="438" height="199"/>
+                                    <rect key="frame" x="2" y="2" width="436" height="197"/>
                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                     <subviews>
-                                        <textView importsGraphics="NO" verticallyResizable="YES" usesFontPanel="YES" findStyle="panel" continuousSpellChecking="YES" allowsUndo="YES" usesRuler="YES" allowsNonContiguousLayout="YES" quoteSubstitution="YES" dashSubstitution="YES" spellingCorrection="YES" smartInsertDelete="YES" id="pw8-SI-ZEw">
-                                            <rect key="frame" x="0.0" y="0.0" width="438" height="199"/>
+                                        <textView editable="NO" importsGraphics="NO" verticallyResizable="YES" usesFontPanel="YES" findStyle="panel" continuousSpellChecking="YES" allowsUndo="YES" usesRuler="YES" allowsNonContiguousLayout="YES" quoteSubstitution="YES" dashSubstitution="YES" spellingCorrection="YES" smartInsertDelete="YES" id="pw8-SI-ZEw">
+                                            <rect key="frame" x="0.0" y="0.0" width="436" height="197"/>
                                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                             <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                            <size key="minSize" width="438" height="199"/>
+                                            <size key="minSize" width="436" height="197"/>
                                             <size key="maxSize" width="463" height="10000000"/>
                                             <attributedString key="textStorage">
                                                 <fragment content="THIS UI IS AWESOME!!!!">
@@ -759,7 +759,7 @@
                                     <autoresizingMask key="autoresizingMask"/>
                                 </scroller>
                                 <scroller key="verticalScroller" verticalHuggingPriority="750" doubleValue="1" horizontal="NO" id="ymv-6R-Wgg">
-                                    <rect key="frame" x="423" y="1" width="16" height="199"/>
+                                    <rect key="frame" x="422" y="2" width="16" height="197"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                 </scroller>
                             </scrollView>

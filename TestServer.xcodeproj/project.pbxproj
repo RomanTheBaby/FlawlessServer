@@ -14,6 +14,8 @@
 		09533BFB2104F41E00E1371B /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 09533BFA2104F41E00E1371B /* main.m */; };
 		09904E5B210B9B8100C980E5 /* ServerThread.m in Sources */ = {isa = PBXBuildFile; fileRef = 09904E5A210B9B8100C980E5 /* ServerThread.m */; };
 		09904E5F210B9C8800C980E5 /* SocketConnectionService.m in Sources */ = {isa = PBXBuildFile; fileRef = 09904E5E210B9C8800C980E5 /* SocketConnectionService.m */; };
+		09C16ED8210E395000D166EB /* NSError+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09C16ED6210E395000D166EB /* NSError+Extension.swift */; };
+		09C16EDC210E482600D166EB /* DateFormatter+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09C16EDA210E482600D166EB /* DateFormatter+Extensions.swift */; };
 		09EB39F7210DDFB800BB299B /* NSViewController+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09EB39F6210DDFB800BB299B /* NSViewController+Extensions.swift */; };
 		09EB39FC210DE2D300BB299B /* NSTextView+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09EB39FA210DE2D300BB299B /* NSTextView+Extensions.swift */; };
 /* End PBXBuildFile section */
@@ -33,6 +35,8 @@
 		09904E5A210B9B8100C980E5 /* ServerThread.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ServerThread.m; sourceTree = "<group>"; };
 		09904E5D210B9C8800C980E5 /* SocketConnectionService.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SocketConnectionService.h; sourceTree = "<group>"; };
 		09904E5E210B9C8800C980E5 /* SocketConnectionService.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SocketConnectionService.m; sourceTree = "<group>"; };
+		09C16ED6210E395000D166EB /* NSError+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NSError+Extension.swift"; sourceTree = "<group>"; };
+		09C16EDA210E482600D166EB /* DateFormatter+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "DateFormatter+Extensions.swift"; sourceTree = "<group>"; };
 		09EB39F6210DDFB800BB299B /* NSViewController+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NSViewController+Extensions.swift"; sourceTree = "<group>"; };
 		09EB39F9210DE07E00BB299B /* TestServer-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "TestServer-Bridging-Header.h"; sourceTree = "<group>"; };
 		09EB39FA210DE2D300BB299B /* NSTextView+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NSTextView+Extensions.swift"; sourceTree = "<group>"; };
@@ -148,6 +152,8 @@
 				09EB39F9210DE07E00BB299B /* TestServer-Bridging-Header.h */,
 				09EB39F6210DDFB800BB299B /* NSViewController+Extensions.swift */,
 				09EB39FA210DE2D300BB299B /* NSTextView+Extensions.swift */,
+				09C16ED6210E395000D166EB /* NSError+Extension.swift */,
+				09C16EDA210E482600D166EB /* DateFormatter+Extensions.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -232,8 +238,10 @@
 				09533BF32104F41D00E1371B /* ViewController.m in Sources */,
 				09533BFB2104F41E00E1371B /* main.m in Sources */,
 				09EB39F7210DDFB800BB299B /* NSViewController+Extensions.swift in Sources */,
+				09C16ED8210E395000D166EB /* NSError+Extension.swift in Sources */,
 				09904E5F210B9C8800C980E5 /* SocketConnectionService.m in Sources */,
 				09533BF02104F41D00E1371B /* AppDelegate.m in Sources */,
+				09C16EDC210E482600D166EB /* DateFormatter+Extensions.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -12,7 +12,7 @@
 #import "SocketConnectionService.h"
 #include <CoreFoundation/CoreFoundation.h>
 
-@interface ServerThread()
+@interface ServerThread() <SocketServiceDelegate>
 
 @property(assign, nonatomic) CFSocketRef socket;
 
@@ -26,13 +26,14 @@
 
 - (void) initializeServer {
 
+    CFSocketContext context = {0, (__bridge void *)(self), NULL, NULL, NULL};
     self.socket = CFSocketCreate(kCFAllocatorDefault,
                                  PF_INET,
                                  SOCK_STREAM,
                                  IPPROTO_TCP,
                                  kCFSocketAcceptCallBack,
                                  socketCallback, // CFSocketCallBack
-                                 NULL);
+                                 &context);
 
     struct sockaddr_in sin;
 
@@ -63,6 +64,8 @@
 - (void) startServer {
     [self initializeServer];
 
+    [self.delegate serverDidReceiveMessage:@"\nServer Started server..."];
+
     CFRunLoopSourceRef socketLoopSource = CFSocketCreateRunLoopSource(kCFAllocatorDefault,
                                                                       self.socket,
                                                                       0);
@@ -72,12 +75,11 @@
                        kCFRunLoopDefaultMode);
 
     CFRelease(socketLoopSource);
-    NSLog(@"IS in loop");
     CFRunLoopRun();
 }
 
 - (void) stopServer {
-    NSLog(@"Will stop server");
+    [self.delegate serverDidReceiveMessage:@"Will stop server...\n"];
     CFSocketInvalidate(self.socket);
     CFRelease(self.socket);
     CFRunLoopStop(CFRunLoopGetCurrent());
@@ -88,7 +90,9 @@ void socketCallback(CFSocketRef cfSocket, CFSocketCallBackType type,
 {
     switch (type) {
         case kCFSocketAcceptCallBack: {
+            ServerThread *thread = (__bridge ServerThread *)(info);
             SocketConnectionService *connection = [[SocketConnectionService alloc] init];
+            connection.delegate = thread;
             CFStreamCreatePairWithSocket(kCFAllocatorDefault, *(CFSocketNativeHandle*)data,
                                          &(connection->readStream), &(connection->writeStream));
             CFReadStreamSetProperty(connection->readStream, kCFStreamPropertyShouldCloseNativeSocket, kCFBooleanTrue);
@@ -107,6 +111,20 @@ void socketCallback(CFSocketRef cfSocket, CFSocketCallBackType type,
         case kCFSocketConnectCallBack:
             break;
     }
+}
+
+#pragma mark - SocketServiceDelegate
+
+- (void) socketDidReceiveError:(NSError*) error {
+    dispatch_async(dispatch_get_main_queue(), ^{
+        [self.delegate socketDidReceiveError:error];
+    });
+}
+
+- (void) serverDidReceiveMessage:(NSString*) message {
+    dispatch_async(dispatch_get_main_queue(), ^{
+        [self.delegate serverDidReceiveMessage:message];
+    });
 }
 
 @end

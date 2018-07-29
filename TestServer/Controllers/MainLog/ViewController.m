@@ -10,8 +10,7 @@
 #import "ViewController.h"
 #import "TestServer-Swift.h"
 
-
-@interface ViewController()
+@interface ViewController() <ServerDelegate>
 
 @property (strong, nonatomic) ServerThread *server;
 @property (unsafe_unretained) IBOutlet NSTextView *logsTextView;
@@ -23,6 +22,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.server = [[ServerThread alloc] init];
+    self.server.delegate = self;
     [self.server start];
 }
 
@@ -44,6 +44,16 @@
 
 - (void) stopServer {
     [self.server stopServer];
+}
+
+#pragma mark - ServerDelegate
+
+- (void) socketDidReceiveError:(NSError*) error {
+    [self.logsTextView addErrorMessage:[error localizedDescription]];
+}
+
+- (void) serverDidReceiveMessage:(NSString*) message {
+    [self.logsTextView addMessage:message];
 }
 
 @end
