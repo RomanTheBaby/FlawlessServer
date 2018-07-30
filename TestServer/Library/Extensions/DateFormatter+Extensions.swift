@@ -16,6 +16,6 @@ extension DateFormatter {
     }()
 
     struct DateFormats {
-        static let MessageDate = "dd.MM.yy"
+        static let MessageDate = "dd.MM.yy, h:mm:ss a"
     }
 }

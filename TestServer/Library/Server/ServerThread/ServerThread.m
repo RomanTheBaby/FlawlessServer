@@ -25,7 +25,7 @@
     return [super init];
 }
 
-- (BOOL) initializeServer {
+- (void) initializeServer {
 
     CFSocketContext context = {0, (__bridge void *)(self), NULL, NULL, NULL};
     self.socket = CFSocketCreate(kCFAllocatorDefault,
@@ -51,17 +51,20 @@
                                     (UInt8 *)&sin,
                                     sizeof(sin));
 
-    CFSocketSetAddress(self.socket, sincfd);
+    CFSocketError addressError = CFSocketSetAddress(self.socket, sincfd);
     CFRelease(sincfd);
 
-    NSInteger bindResult = bind(self.socket, (struct sockaddr *)&sin, sizeof(sin));
-
-//    if (bindResult != 0) {
-//        [self.delegate socketDidReceiveError:[NSError describing: @"Socket Binding Error"]];
-//        return NO;
-//    }
-
-    return YES;
+    switch (addressError) {
+        case kCFSocketSuccess:
+            [self.delegate serverDidReceiveMessage:@"\nDid Set address..."];
+            break;
+        case kCFSocketError:
+            [self.delegate socketDidReceiveError:[NSError describing:@"Socket Error: Please restart Xcode or try again..."]];
+            break;
+        case kCFSocketTimeout:
+            [self.delegate socketDidReceiveError:[NSError describing:@"Connection timeout..."]];
+            break;
+    }
 }
 
 - (void) cancel {
@@ -70,23 +73,27 @@
 }
 
 - (void) startServer {
-    if ([self initializeServer]) {
-        [self.delegate serverDidReceiveMessage:@"\nServer Started server..."]; // funny message
+    [self initializeServer];
 
-        CFRunLoopSourceRef socketLoopSource = CFSocketCreateRunLoopSource(kCFAllocatorDefault,
-                                                                          self.socket,
-                                                                          0);
+    [self.delegate serverDidReceiveMessage:@"Server Started server..."]; // funny message
 
-        CFRunLoopAddSource(CFRunLoopGetCurrent(),
-                           socketLoopSource,
-                           kCFRunLoopDefaultMode);
+    CFRunLoopSourceRef socketLoopSource = CFSocketCreateRunLoopSource(kCFAllocatorDefault,
+                                                                      self.socket,
+                                                                      0);
 
-        CFRelease(socketLoopSource);
-        CFRunLoopRun();
-    }
+    CFRunLoopAddSource(CFRunLoopGetCurrent(),
+                       socketLoopSource,
+                       kCFRunLoopDefaultMode);
+
+    CFRelease(socketLoopSource);
+    CFRunLoopRun();
 }
 
 - (void) stopServer {
+    if(!self.socket) {
+        return;
+    }
+
     [self.delegate serverDidReceiveMessage:@"Will stop server...\n"];
     CFSocketInvalidate(self.socket);
     CFRelease(self.socket);

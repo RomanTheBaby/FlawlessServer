@@ -12,9 +12,6 @@
 @interface SocketConnectionService() <NSStreamDelegate> {
     __strong NSInputStream *inputStream;
     __strong NSOutputStream *outputStream;
-
-    NSInteger currentOffset;
-    NSMutableArray *receivedDataArray;
 }
 
 @end
@@ -22,8 +19,6 @@
 @implementation SocketConnectionService
 
 - (void) main {
-    currentOffset = 0;
-    receivedDataArray = [NSMutableArray new];
 
     inputStream = (__bridge NSInputStream *)(readStream);
     outputStream = (__bridge NSOutputStream *)(writeStream);
@@ -48,24 +43,26 @@
     if (dataLength > 0) {
         NSData *receivedData = [NSData dataWithBytes:buff length:dataLength];
         NSString *message = [[NSString alloc] initWithData:receivedData encoding:NSUTF8StringEncoding];
-        NSLog(@"will sen message: %@", message);
 
-        [receivedDataArray insertObject:receivedData atIndex:0];
+        NSString *formattedMessage = [self formatMessage:message];
+        [self sendMessageToDelegate:formattedMessage];
 
-        NSString *receivedMessage = [[NSString alloc] initWithBytes:buff length:dataLength encoding:NSUTF8StringEncoding];
-        [self sendMessageToDelegate:receivedMessage];
+        NSData *dataForClient = [formattedMessage dataUsingEncoding:NSUTF8StringEncoding];
 
         // so client could see the message to
-        [outputStream write:[receivedData bytes] maxLength:dataLength];
+        [outputStream write:[dataForClient bytes] maxLength:[dataForClient length]];
     } else if (dataLength < 0) {
         [self sendErrorToDelegate:[stream streamError]];
     }
 }
 
-- (void) sendMessageToDelegate:(NSString*) message {
+- (NSString*) formatMessage:(NSString*) message {
     NSString *messageDate = [[NSDateFormatter MessageDate] stringFromDate:[[NSDate alloc] init]];
-    NSString *formattedMessage = [NSString stringWithFormat:@"[%@] %@", messageDate, message];
-    [self.delegate serverDidReceiveMessage:formattedMessage];
+    return [NSString stringWithFormat:@"[%@] %@", messageDate, message];
+}
+
+- (void) sendMessageToDelegate:(NSString*) message {
+    [self.delegate serverDidReceiveMessage:message];
 }
 
 - (void) sendErrorToDelegate:(NSError* _Nullable) error {
